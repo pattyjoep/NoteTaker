@@ -71,7 +71,7 @@ app.delete("/api/notes/:id", function(req, res) {
 
   for (var i = 0; i < notes.length; i++) {
     if (chosen === notes[i].id) {
-      notes.splice(notes[i]);
+      notes.splice(i, 1);
       return res.json(true)
     }
   }

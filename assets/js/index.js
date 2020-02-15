@@ -37,7 +37,7 @@ var deleteNote = function(id) {
 var renderActiveNote = function() {
   $saveNoteBtn.hide();
 
-  let activeNote = $(this).data();
+  //let activeNote = $(this).data();
 
   if (activeNote.id) {
     $noteTitle.attr("readonly", true);
@@ -74,7 +74,7 @@ var handleNoteDelete = function(event) {
     .parent(".list-group-item")
     .data();
   
-  let activeNote = $(this).data();
+  //let activeNote = $(this).data();
 
   if (activeNote.id === note.id) {
     activeNote = {};
