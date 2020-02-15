@@ -1,6 +1,7 @@
 // Dependencies
 var express = require("express");
 var path = require("path");
+const textToID = require('texttoid');
 
 
 // Sets up the Express App
@@ -32,20 +33,49 @@ app.get("/api/notes", function(req, res) {
   return res.json(notes);
 });
 
+app.get("api/notes/:id", function(req, res) {
+  var chosen = req.params.id;
+
+  console.log(chosen);
+
+  for (var i = 0; i < notes.length; i++) {
+    if (chosen === notes[i].id) {
+      return res.json(notes[i]);
+    }
+  }
+
+  return res.json(false);
+});
+
 
 
 // Posts
 app.post("/api/notes", function(req, res) {
   
   var newNote = req.body;
+  var id = 0;
 
-  newNote.routeName = newReservation.title.replace(/\s+/g, "").toLowerCase();
-    
+  newNote.id = textToID(newNote.title); //newNote.title.replace(/\s+/g, "").toLowerCase();
+  
   notes.push(newNote);
 
   res.json(newNote); 
 
 });
+
+// app.delete("api/notes/:id", function(req, res) {
+//   var chosen = req.params.id;
+
+//   console.log(chosen);
+
+//   for (var i = 0; i < notes.length; i++) {
+//     if (chosen === notes[i].id) {
+//       return res.json(note[i]);
+//     }
+//   }
+
+//   return res.json(false);
+// });
 
 
 // Starts the server to begin listening
