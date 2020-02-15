@@ -1,7 +1,7 @@
 // Dependencies
 var express = require("express");
 var path = require("path");
-const textToID = require('texttoid');
+const textToID = require("texttoid");
 
 
 // Sets up the Express App
@@ -33,12 +33,13 @@ app.get("/api/notes", function(req, res) {
   return res.json(notes);
 });
 
-app.get("api/notes/:id", function(req, res) {
-  var chosen = req.params.id;
+app.get("/api/notes/:id", function(req, res) {
+  var chosen = parseInt(req.params.id);
 
   console.log(chosen);
 
   for (var i = 0; i < notes.length; i++) {
+    console.log(notes[i].id)
     if (chosen === notes[i].id) {
       return res.json(notes[i]);
     }
@@ -53,7 +54,6 @@ app.get("api/notes/:id", function(req, res) {
 app.post("/api/notes", function(req, res) {
   
   var newNote = req.body;
-  var id = 0;
 
   newNote.id = textToID(newNote.title); //newNote.title.replace(/\s+/g, "").toLowerCase();
   
@@ -63,19 +63,20 @@ app.post("/api/notes", function(req, res) {
 
 });
 
-// app.delete("api/notes/:id", function(req, res) {
-//   var chosen = req.params.id;
+app.delete("/api/notes/:id", function(req, res) {
+  var chosen = parseInt(req.params.id);
 
-//   console.log(chosen);
+  //splice()
+  console.log(chosen);
 
-//   for (var i = 0; i < notes.length; i++) {
-//     if (chosen === notes[i].id) {
-//       return res.json(note[i]);
-//     }
-//   }
-
-//   return res.json(false);
-// });
+  for (var i = 0; i < notes.length; i++) {
+    if (chosen === notes[i].id) {
+      notes[i] = {};
+      return res.json(true)
+    }
+  }
+    return res.json(false);
+});
 
 
 // Starts the server to begin listening

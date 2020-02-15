@@ -28,7 +28,7 @@ var saveNote = function(note) {
 // A function for deleting a note from the db
 var deleteNote = function(id) {
   return $.ajax({
-    url: "api/notes/" + id,
+    url: "/api/notes/" + id,
     method: "DELETE"
   });
 };
@@ -36,6 +36,8 @@ var deleteNote = function(id) {
 // If there is an activeNote, display it, otherwise render empty inputs
 var renderActiveNote = function() {
   $saveNoteBtn.hide();
+
+  let activeNote = $(this).data();
 
   if (activeNote.id) {
     $noteTitle.attr("readonly", true);
@@ -71,6 +73,8 @@ var handleNoteDelete = function(event) {
   var note = $(this)
     .parent(".list-group-item")
     .data();
+  
+  let activeNote = $(this).data();
 
   if (activeNote.id === note.id) {
     activeNote = {};
